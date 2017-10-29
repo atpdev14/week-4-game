@@ -3,64 +3,115 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Crystal Game</title>
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css"></link>
+
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto+Condensed" rel="stylesheet">
 </head>
+
 <body>
-	<h1>Crystal Game</h1>
+	<h1>Crystal Crusher</h1>
+	<hr>
 	<h2>You have to reach:
-		<p id="goalSpan"></p>
+		<p id="goalSpan" class="scoreBoard"></p>
 	</h2>
+	<h3>Your total so far is: 
+		<p id="totalSpan" class="scoreBoard"></p>
+	</h3>
 
-	<div id="imageDisplay"></div>
+	<h4>Wins: 
+		<p id="winsSpan" class="scoreBoard"></p>
+		Losses: 
+		<p id="lossesSpan" class="scoreBoard"></p>
+	</h4>
 
+	<div id="imageDisplay" class="scoreBoard"></div>
+
+	
+	<!-- =================================================
+	*************** Javascript *********************
+	================================================= -->
 	<script type="text/javascript">
 		var runningTotal = 0;
+		var wins = 0;
+		var losses = 0;
 
-		function genGoal() {
-
+		// =================================================
+		//Create a function that generates random numbers
+		// ================================================
+		function genRandom() {
+			var random = Math.floor(Math.random()*(100)+1);
+			return random;
 		};
 
-		function genCrystalValues() {
-			
+		// =================================================
+		//Create a reset function to initialize a game after 
+		//a win or loss.
+		// ================================================		
+		function reset() {
+			var associatedValue = genRandom();
+			runningTotal = 0;
+			goal = genRandom();
+			goal = goal + 100;
+			$("#goalSpan").text(goal);
+			console.log("Goal " + goal);
 		};
 		
+		// ================================================
+		// Create a goal for the user to reach
+		// ================================================
+		var goal = genRandom();
+		goal = goal + 100;
+		$("#goalSpan").text(goal);
+		console.log("Goal " + goal);
+		
+		// ================================================
+		//Loop to propagate four instances of crystal images
+		// ================================================
+		for(i = 0; i < 4; i++) {
+			var valueArray = [1, 5, 10, 25];
+			var newImage = $('<img src="assets/images/crystals_bruh.JPEG">');
+			newImage.addClass("crystalImage");
+			newImage.attr("id", "crystal" + i);
+			newImage.attr("value", valueArray[i]);
+			$("#imageDisplay").append(newImage);
+			console.log(valueArray[i]);
+		};
 
+		
+		// ================================================
+		//Click an image to console log its value and Id
+		// ================================================
+		$(".crystalImage").on("click", function() {
+			var clickId = $(this).attr("id");
+			var clickValue = $(this).attr("value");
+			console.log("You just clicked " + clickId + " with a value of " + clickValue + "." );
+			clickValue = parseInt(clickValue);
+			runningTotal += clickValue; //!!!!!!!!! probably not adding because you need to parse the int from the value of the image.  Parse integer before adding to runningTotal.
+			console.log("Running total = " + runningTotal);
+			$("#totalSpan").text(runningTotal); 
 
-
-
-
-
-
-
-
-
-
-
+			
+			// ================================================
+			// Win and Loss Conditions
+			// ================================================
+			if (runningTotal === goal) {
+				alert("YOU WON!!!!");
+				reset();
+				wins++;
+				$("#winsSpan").text(wins);
+			} else if (runningTotal > goal) {
+				alert("YOU WENT TOO FAR, LOSER!");
+				reset();
+				losses++;
+				$("#lossesSpan").text(losses);
+			};
+		});
 	</script>
-
 </body>
 </html>
-
-
-
-<!-- 
--generate a random number that has a higher range, this will serve as the goal the user must reach
--generate random numbers with a smaller range
--Create a loop that will propagate four images of crystals that hold a smaller random number
--use an on-click event to add the associated value to the user's running total
--use conditional statements to determine when the user's runnnig total is equal to the goal or if it exceeds the goal
- -->
-
-
-
-
-
-
-
-
-
-
-
 
 
 

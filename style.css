@@ -1,0 +1,41 @@
+.crystalImage {
+			height: 200px;
+			width: auto;
+			margin: 5px;
+		}
+
+		.crystalImage:hover {
+			border-style: solid;
+			border-width: 5px;
+			border-color: purple;
+		}
+
+		#imageDisplay {
+			box-sizing: border-box;
+			display: block;
+			height: 250px;
+			width: auto;
+			margin: auto;
+			margin-top: 5px;
+		}
+
+		h1, h2, h3, h4 {
+			margin: auto;
+			text-align: center;
+			padding: 10px;
+			background: rgba(165, 94, 201, 0.5);
+			font-family: 'Roboto Condensed', sans-serif;
+		}
+
+		h1 {
+			font-family: 'Press Start 2P', cursive;
+		}
+
+
+		.scoreBoard {
+			margin: auto;
+			text-align: center;
+			padding: 10px;
+			display: inline;
+			background: rgba(165, 94, 201, 0.5);
+		}
